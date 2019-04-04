@@ -181,7 +181,7 @@ H hierarchy of the view in the layout file
 - **Hiding in Plain Sight: A Longitudinal Study of Combosquatting Abuse** [^ccs172]
 - **Verifying Security Policies in Multi-agent Workflows with Loops** [[PDF\]](https://acmccs.github.io/papers/p633-finkbeinerA.pdf) [[Paper\]](http://arxiv.org/abs/1708.09013)
   - We consider the automatic verification of information flow security policies of web-based workflows, such as conference submission systems like EasyChair. 
--  ~~**AUTHSCOPE: Towards Automatic Discovery of Vulnerable Access Control in Online Services**~~ [[PDF\]](https://acmccs.github.io/papers/p799-zuoA.pdf) [report](#AuthScope: Towards Automatic Discovery of Vulnerable Authorizations in Online Services)
+-  ~~**AUTHSCOPE: Towards Automatic Discovery of Vulnerable Access Control in Online Services**~~ [[PDF\]](https://acmccs.github.io/papers/p799-zuoA.pdf) [report](#AuthScope:-Towards-Automatic-Discovery-of-Vulnerable-Authorizations-in-Online-Services)
 
 - **Unleashing the Walking Dead: Understanding Cross-App Remote Infections on Mobile WebViews** [[PDF\]](https://acmccs.github.io/papers/p829-liA.pdf)
 - **Stacco: Differentially Analyzing Side-Channel Traces for Detecting SSL/TLS Vulnerabilities in Secure Enclaves** [[PDF\]](https://acmccs.github.io/papers/p859-xiaoA.pdf)
