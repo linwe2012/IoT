@@ -1,3 +1,7 @@
+[TOC]
+
+
+
 # Where the wild warnings are: root causes of chrome https certificate errors [^www.chrome]
 
 [^www.chrome]: https://acmccs.github.io/papers/p1407-acerA.pdf
@@ -44,7 +48,9 @@ alert users and protect them from nwk attack
   - Missing TLS proxy roots
     - 代理网络的证书没有被安装
 
+## Ideas
 
+这篇论文没有详细介绍怎么分类，基本上是个结果展示，但是他最后提到根据不同的错误给出提示有助于用户理解问题，在检查一个协议安全性的时候，也需要从用户角度出发，确保用户能正确理解安全信息做出恰当的举动
 
 
 
@@ -63,10 +69,94 @@ Drawbacks
 
 # AuthScope: Towards Automatic Discovery of Vulnerable Authorizations in Online Services
 
+- differential traffic analysis
 
-## Ideas
+authentication: verify user's identity
 
-这篇论文没有详细介绍怎么分类，基本上是个结果展示，但是他最后提到根据不同的错误给出提示有助于用户理解问题，在检查一个协议安全性的时候，也需要从用户角度出发，确保用户能正确理解安全信息做出恰当的举动
+authorize: grant access of specific resources
+
+#### Unix Authorization Security
+
+kernel remember and track user's UID and corresponding permisssions
+
+#### Online service authorization
+
+difficulties:
+
+- HTTP is stateless: send  state msg in every response & request (tokens, e.g. cookies & session id)
+  - step1 authenticate over TLS
+  - server create token
+  - client use token to access resources
+
+Example: (No enforcement of security token)
+
+- security token and UID are both valid, except that they belong to different user
+
+
+
+Obstacles:
+
+- login to lots of apps: use facebook login
+- recognize protocol fields of interest: 2 users  same message and extract differences
+  - e.g. GET /api/v1//users/**21691**/notifications?_token=**e67315b35aa3** HTTP/1.1
+- 上一步找到了不同的部分(加粗) 用 small Euclidean distance，通常比较小的话说明这不是随机的， 比如 `/users/21691/` 和 `/users/21682/` 
+- 首先比如看到了Bob的信息，然后Alice把Euclidean distance部分替换成自己的，请求数据，如果发现返回了Bob的私人信息(通过和Bob收到的信息比对)，那么就说明有弱点
+  - 注: 时间戳等在和bob比对这前需要删去
+  - 注2： 比如邮箱地址/FacebookID往往是可以替换的但容易被当作欧氏距离较大，所以要分开考虑
+  - 注3：有些情况，比如新闻APP总会提供同样的信息，所以要检查不登录情况下的信息，这样不登陆获得的信息用于剔除公开的，非私密下消息
+
+#### Vulnerabilities
+
+- no secure token
+- no randomness referring to server data
+- no enforcement of access control using tokens
+
+**NOT** in this work
+
+- token not changed
+- randomness of token
+- plaintext transmission of token
+- no/weak authentication
+
+#### Prerequisite
+
+- malicious root certificate installed to perform man in the middle attack
+
+#### Detail
+
+##### Login
+
+分析UI， DFS找到Facebook 登录界面，，分析UI，每一个界面由 N C T I A H
+
+N name of activity
+
+C class name of view (e.g. android.widget.Button)
+
+T text or image
+
+A action binded to view
+
+H hierarchy of the view in the layout file
+
+ 注: 我觉得这些度量衡不是正交的，但是这样选取是因为部分参数可能缺失
+
+找View 中 Facebook 字符串
+
+#### 成果
+
+4838 APP被分析，花了562.4小时 大约发送了59.2GB消息
+
+
+
+### Review
+
+1. 作者能做到全自动化分析，其中用了不少有趣的 workaround， 比如批量注册不同APP账号等
+
+
+
+# How Unique is Your .onion? An Analysis of the Fingerprintability of Tor Onion Services
+
+
 
 
 
@@ -82,7 +172,7 @@ Drawbacks
 - **Hiding in Plain Sight: A Longitudinal Study of Combosquatting Abuse** [^ccs172]
 - **Verifying Security Policies in Multi-agent Workflows with Loops** [[PDF\]](https://acmccs.github.io/papers/p633-finkbeinerA.pdf) [[Paper\]](http://arxiv.org/abs/1708.09013)
   - We consider the automatic verification of information flow security policies of web-based workflows, such as conference submission systems like EasyChair. 
-- **AUTHSCOPE: Towards Automatic Discovery of Vulnerable Access Control in Online Services** [[PDF\]](https://acmccs.github.io/papers/p799-zuoA.pdf)
+-  ~~**AUTHSCOPE: Towards Automatic Discovery of Vulnerable Access Control in Online Services**~~ [[PDF\]](https://acmccs.github.io/papers/p799-zuoA.pdf) [report](#AuthScope: Towards Automatic Discovery of Vulnerable Authorizations in Online Services)
 
 - **Unleashing the Walking Dead: Understanding Cross-App Remote Infections on Mobile WebViews** [[PDF\]](https://acmccs.github.io/papers/p829-liA.pdf)
 - **Stacco: Differentially Analyzing Side-Channel Traces for Detecting SSL/TLS Vulnerabilities in Secure Enclaves** [[PDF\]](https://acmccs.github.io/papers/p859-xiaoA.pdf)
