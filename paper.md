@@ -67,7 +67,9 @@ Drawbacks
 
 
 
-# AuthScope: Towards Automatic Discovery of Vulnerable Authorizations in Online Services
+# AuthScope
+
+> AuthScope: Towards Automatic Discovery of Vulnerable Authorizations in Online Services
 
 - differential traffic analysis
 
@@ -156,7 +158,90 @@ H hierarchy of the view in the layout file
 
 
 
-# Touching the Untouchables: Dynamic Security Analysis of the LTE Control Plane
+# LTEFuzz
+
+> Touching the Untouchables: Dynamic Security Analysis of the LTE Control Plane
+
+![](img/ltefuz-00.png)
+
+
+
+### LTE
+
+###### UE
+
+**UE**: User Equipment, i.e. mobile service, identified by IMEI
+
+###### eNB
+
+**RRU**: Remote Radio Unit, process transmission & reception of RF signals
+
+**BBU**: process baseband signals and connected to multiple *RRUs*, each covers a cell
+
+**eNB**: evolved node B, Base Transceiver Station, incl. *BBU*, 
+
+**MME**: Mobility Management Entity, for control plane communication and 4G gateways,
+
+authenticate UE, manage status of subscribers and Evolved Packet System **EPS**
+
+**EPC**: Evolved Packet Core, key control node,
+
+**HSS**: Home Subscriber Server, contain cryto keys for authentication
+
+
+
+![](img/ltefuz-01.png)
+
+
+
+##### UE & MME Comm
+
+4. UE 向MME 携带eNB的 NAS Attach Request
+5. MME Authentication and Key Agreement, 从HSS 拿到验证向量(Authen Vector) UE和MME相互验证
+6. MME选加密算法发给UE，UE生成对应密钥
+7. eNB 得知加密算法
+8. MME 给UE 一个临时ID
+
+#### Extracting Security Property from standard
+
+|      | Security property                                            | Target procedures/messages                            | Example                                     |
+| ---- | ------------------------------------------------------------ | ----------------------------------------------------- | ------------------------------------------- |
+| P1   | Invalid plain messages should be properly handled            | Messages that are allowed to be sent in plaintext     | RRC Connection request, IMSI Attach request |
+|      |                                                              | Messages that are not allowed to be sent in plaintext | GUTI Attach request, Uplink NAS transport   |
+| P2   | Invalid security protected messages should be properly handled | Messages with invalid integrity protection            | PDN disconnect request, Service request     |
+|      |                                                              | Messages with invalid sequence number                 |                                             |
+| P3   | Mandatory security procedures should not be bypassed         | Mutual authentication procedure                       | Authentication request                      |
+|      |                                                              | Key agreement procedure                               | NAS/RRC Security mode command               |
+
+
+
+##### P1
+
+1. 在安全机制生效前的恶意明文 --协议问题
+   - 很难区分恶意
+   - 如果攻击者获取用户ID就可以伪装成用户，DoS
+2. 生效后使用明文 --具体实现的漏洞
+   - 基站应该拒绝
+   - 示例: 如果设备重连，保存着之前的密钥和临时ID，利用临时ID可以跳过AKA，MME必须检查信息是否安全，即用户的发送的是否用之前的密钥加密过，否则攻击者可以利用之前嗅探到的临时ID切断被攻击者网络 for several seconds
+
+##### P2
+
+消息应该被加密，而且MAC(Message Authentication Code 必须被计算，用于验证完整性 --类似签名？)
+
+1. 设备需要验证消息完整性 --实现漏洞
+2. 序列号必须被检查防止replay atk -- 实现漏洞
+
+##### P3
+
+安全措施是否被绕过，比如忽略 NAS Authentication request -- 实现问题
+
+
+
+##### Other
+
+1. eNB过载-- 协议漏洞
+   - 攻击者不断连接eBN导致其过载，因为UE不回复NAS Authentication request 会导致MME 维持连接直到回复
+2. 假基站 -- 协议没考虑？
 
 
 
@@ -165,7 +250,7 @@ H hierarchy of the view in the layout file
 
 # How Unique is Your .onion? An Analysis of the Fingerprintability of Tor Onion Services
 
-
+访问网页获取指纹， 抓包计算指纹进行匹配就能发现你访问了那个网站
 
 
 
