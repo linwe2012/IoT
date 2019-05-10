@@ -254,6 +254,13 @@ authenticate UE, manage status of subscribers and Evolved Packet System **EPS**
 
 
 
+# Stacco: Differentially Analyzing Side-Channel Traces for Detecting SSL/TLS Vulnerabilities in Secure Enclave
+1. Vulnerabilities
+   - Side Channel
+     - mem access pattern
+     - time consumed
+   - leverage error message
+
 # TODO
 
 可能有关的论文
@@ -266,14 +273,14 @@ authenticate UE, manage status of subscribers and Evolved Packet System **EPS**
 - **Hiding in Plain Sight: A Longitudinal Study of Combosquatting Abuse** [^ccs172]
 - **Verifying Security Policies in Multi-agent Workflows with Loops** [[PDF\]](https://acmccs.github.io/papers/p633-finkbeinerA.pdf) [[Paper\]](http://arxiv.org/abs/1708.09013)
   - We consider the automatic verification of information flow security policies of web-based workflows, such as conference submission systems like EasyChair. 
--  ~~**AUTHSCOPE: Towards Automatic Discovery of Vulnerable Access Control in Online Services**~~ [[PDF\]](https://acmccs.github.io/papers/p799-zuoA.pdf) [report](#AuthScope:-Towards-Automatic-Discovery-of-Vulnerable-Authorizations-in-Online-Services)
-
+- ~~**AUTHSCOPE: Towards Automatic Discovery of Vulnerable Access Control in Online Services**~~ [[PDF\]](https://acmccs.github.io/papers/p799-zuoA.pdf) [report](#AuthScope:-Towards-Automatic-Discovery-of-Vulnerable-Authorizations-in-Online-Services)
 - **Unleashing the Walking Dead: Understanding Cross-App Remote Infections on Mobile WebViews** [[PDF\]](https://acmccs.github.io/papers/p829-liA.pdf)
 - **Stacco: Differentially Analyzing Side-Channel Traces for Detecting SSL/TLS Vulnerabilities in Secure Enclaves** [[PDF\]](https://acmccs.github.io/papers/p859-xiaoA.pdf)
 - **Watch Me, but Don’t Touch Me! Contactless Control Flow Monitoring via Electromagnetic Emanations** [[PDF\]](https://acmccs.github.io/papers/p1095-hanA.pdf)
 - **A Large-Scale Empirical Study of Security Patches** [[PDF\]](https://acmccs.github.io/papers/p2201-liA.pdf) 
+- **A Formal Model and Analysis of an IoT Protocol** [link](<https://www.researchgate.net/publication/277305118_A_Formal_Model_and_Analysis_of_an_IoT_Protocol>)
 
-
+- **Towards a Formal Analysis of MQtt Protocol in the Context of Communicating Vehicles** [link](https://dl.acm.org/citation.cfm?id=3132079) [PDF](https://dl.acm.org/ft_gateway.cfm?id=3132079&ftid=1922127&dwn=1&CFID=66189670&CFTOKEN=c7e03bea19e4b2af-D265A005-AAB9-FAC6-7B91A231611D9EDF)
 
 
 
