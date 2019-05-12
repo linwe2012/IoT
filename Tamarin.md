@@ -1,3 +1,13 @@
+---
+author:
+	- name: kyh
+	  github: kyh
+	- name: leon
+	  leon
+---
+
+
+
 # Installation
 
 ###### 环境
@@ -51,6 +61,8 @@ brew install tamarin-prover/tap/tamarin-prover
 
 首先Tamarin作为一个Prover， 能指定几个状态之间的转化，以及安全守则，Tamarin 会自动分析在状态转换之间是否遵守了安全守则。
 
+### Rule
+
 在Tamarin中状态转换用 `rule` 表示。基本语法 demo (语法不是完整的)：
 
 ```c++
@@ -71,6 +83,8 @@ rule Client:
 
 
 
+### Fact
+
 Tamarin 中的状态是用被称为`Fact`, Tamarin的执行过程如下：
 
 1. 首先是一个完全空的状态
@@ -78,6 +92,8 @@ Tamarin 中的状态是用被称为`Fact`, Tamarin的执行过程如下：
 3. 找到可以匹配的状态，重复2， 比如demo 中`rule Client` 被执行2两次
 
 
+
+#### Fact Attribute
 
 实际上协议更复杂的，比如永久密钥 (Long Term Key, aka. Ltk) 是在理论上每一个状态都应该有，而有些变量比如随机数是临时的，Tamarin通过记号标记这些状态包含的变量的属性
 
@@ -87,14 +103,21 @@ Tamarin 中的状态是用被称为`Fact`, Tamarin的执行过程如下：
 | `$`         | pub: 公开的变量，比如公钥, 如`$pubkey` |
 | `#`         | temporal: 时间变量, 如 `#timepoint`    |
 | `PublicKey` | `PublicKey` 是一条消息, 如 `msg`       |
+| `'ident`'   | 是一个公开的常量                       |
 
 
+
+#### Persistent Fact
 
 为了表示永久密钥这个Fact一直存在，引入标记：
 
 | Syntax | Explain                                                      |
 | ------ | ------------------------------------------------------------ |
 | `!`    | 表示这个状态始终存在，如`Ltk($serverid, ~ltk)`, 这里使用`~` fresh是因为对于每一个Server的永久密钥是不同的 |
+
+> In contrast, some facts in our models will never be removed from the state once they are introduced. Modeling this using linear facts would require that every rule that has such a fact in the left-hand-side, also has an exact copy of this fact in the right-hand side. While there is no fundamental problem with this modeling in theory, it is inconvenient for the user and it also might lead Tamarin to explore rule instantiations that are irrelevant for tracing such facts in practice, which may even lead to non-termination.
+>
+> For the above two reasons, we now introduce 'persistent facts', which are never removed from the state. We denote these facts by prefixing them with a bang (`!`).
 
 
 
@@ -109,9 +132,26 @@ Tamarin 中的状态是用被称为`Fact`, Tamarin的执行过程如下：
 
 
 
-function
+`builtins` 在Tamarin里是内建函数，包含了
 
-builtins
+| builtin          | Explain                  | Example                  |
+| ---------------- | ------------------------ | ------------------------ |
+| `diffie-hellman` | 求指数，一般用于计算公钥 | `pubkey = 'g' ^ privkey` |
+
+
+
+
+
+`functions` 是用户自己定义的函数，没有特殊说明的则是单向的函数，定义方法如下：
+
+```javascript
+functions: h1/2 // 定义了h1, 接受1个参数
+functions: f1/2 // 定义了f1, 接受2个参数
+```
+
+
+
+
 
 oracle
 
