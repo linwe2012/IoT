@@ -120,7 +120,7 @@ Tamarin 中的**状态** 是由多个**事实** (<dfn>fact</dfn>) 组成的, Tam
 | `$`         | pub: 公开的变量，比如公钥, 如`$pubkey`         |
 | `#`         | temporal: 时间变量, 如 `#timepoint`            |
 | `PublicKey` | `PublicKey` 是一条消息, 如 `msg`               |
-| `'ident`'   | 是一个公开的常量，比如`pubkey = 'g' ^ privkey` |
+| `'ident'`   | 是一个公开的常量，比如`pubkey = 'g' ^ privkey` |
 
 
 
@@ -134,7 +134,7 @@ Tamarin 中的**状态** 是由多个**事实** (<dfn>fact</dfn>) 组成的, Tam
 | `Out()` | 输出信息将被攻击者看到，比如`Out(publickey)` |
 | `In()`  | 输入信息可以被嗅探到，可能是伪造的，篡改的   |
 
-
+`In` 和 `Out` 是符合`Dolev-Yao` 的攻击者模型的。
 
 #### 1.2.1.2 Linear Facts
 
@@ -229,8 +229,36 @@ equations: adec(aenc(m, pk(sk)), sk) = m
 | `f @ i`   | f 发生在时间点 `i`, 这里的`#` 可以省略 |
 | `#i = #j` | 同时                                   |
 | `x = y`   | x, y 两条信息相等                      |
+| `K(msg)`  | `msg` 被攻击者知道了                   |
+| `.`       | so that                                |
+
+优先级(由高到低)
+
+- `not`
+- `&`
+- `|`
+- `==>`
+
+比如这样一个规则：
+
+```javascript
+rule fictitious:
+   [ Pre(x), Fr(~n) ]
+ --[ Act1(~n), Act2(x) ]-->
+   [ Out(<x,~n>) ]
+```
 
 
+
+定义安全规则使用 lemma 关键字:
+
+```javascript
+lemma distinct_nonces: 
+	all-traces // 可省略
+    "All n #i #j. Act1(n)@i & Act1(n)@j ==> #i=#j"
+```
+
+这里`all-traces` 指的是对于所有的状态转换执行路径(<dfn>traces</dfn>) `lemma`都要成立，默认是开启的，当然也可以替换成 `exists-trace `， 只要符合一条路径就能成立。
 
 
 
