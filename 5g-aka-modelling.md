@@ -2,7 +2,7 @@
 
 **1. Rules (model the protocol):**
 
-** 1.1 Three main entities: **
+**1.1 Three main entities:**
 
 | Entity           | Contain                                                      |
 | ---------------- | ------------------------------------------------------------ |
@@ -362,7 +362,7 @@ lemma secrecy_seaf_kseaf_noKeyRev_noSupiRev_noSqnRev_noAsyKeyRev [hide_lemma=sqn
            	    | (Ex X s #r. Rev(X, <'supi',s>)@r & Honest(X)@i) "
 ```
 
-**2.4 Agreement (UE->SEAF) **
+**2.4 Agreement (UE->SEAF)**
 
 ```C
 /********************************************/
