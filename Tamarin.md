@@ -365,7 +365,7 @@ lemma B_is_secret:
 
 # 2. Model Protocol
 
-## 2.0
+## 2.0 Prerequisites
 
 本章会介绍一下5G AKA 的model 的一部分，首先是一些Prerequisites
 
