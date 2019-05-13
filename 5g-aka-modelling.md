@@ -2,7 +2,7 @@
 
 **1. Rules (model the protocol):**
 
-**1.1 Three main entities: **
+** 1.1 Three main entities: **
 
 | Entity           | Contain                                                      |
 | ---------------- | ------------------------------------------------------------ |
