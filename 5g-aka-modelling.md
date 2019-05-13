@@ -146,9 +146,9 @@ rule secureChannel_compromised_out:
 
 The whole process will be shown below:
 
-![](C:\Users\asus\Desktop\IoT\IoT\img\5gaka-process1.png)
+![](https://github.com/kyhn7/IoT/blob/master/img/5gaka-process1.png)
 
-![](C:\Users\asus\Desktop\IoT\IoT\img\5g-aka-process2.jpg)
+![](https://github.com/kyhn7/IoT/blob/master/img/5g-aka-process2.jpg)
 
 Because the whole process is complicated, we only take a part of the process(Figure 2) as example
 
