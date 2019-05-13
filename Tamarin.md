@@ -1,5 +1,5 @@
 ---
-acknowlegement: kyh (kyhn7@github.com) is co-author of this doc
+acknowledgement: kyh (kyhn7@github.com) is co-author of this doc
 ---
 
 # 0. Installation
